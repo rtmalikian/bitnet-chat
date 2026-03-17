@@ -1,0 +1,37 @@
+# Git
+.git
+.gitignore
+.gitmodules
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+bitnet_venv/
+*.egg-info/
+.eggs/
+
+# Build artifacts (will be built in container)
+build/
+logs/
+models/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local Python scripts not needed in container
+download_*.py
+list_model_files.py
