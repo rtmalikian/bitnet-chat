@@ -1,10 +1,33 @@
-# BitNet Chat
+# BitNet Chat - Web Interface
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![Docker](https://img.shields.io/badge/docker-ready-2496ED.svg?logo=docker)](https://www.docker.com/)
 
 **🤖 A ChatGPT-like web interface for Microsoft BitNet. Run a local AI assistant on your machine with OpenAI-compatible API. 100% private, no cloud required.**
+
+> **⚠️ Important:** This project provides a **web interface tool** for Microsoft's BitNet model. The BitNet model and inference engine are developed by Microsoft. This project adds a user-friendly web UI layer on top of the existing BitNet infrastructure.
+
+## 🔗 Original Project
+
+This web interface is built on top of the official **Microsoft BitNet** project:
+
+- **Original Repository:** [microsoft/BitNet](https://github.com/microsoft/BitNet)
+- **Research Paper:** [BitNet: Scaling 1-bit Transformers](https://arxiv.org/abs/2310.11453)
+- **Model:** [BitNet-b1.58-2B-4T on Hugging Face](https://huggingface.co/microsoft/BitNet-b1.58-2B-4T-gguf)
+
+## 🎯 What This Project Adds
+
+I created this **web-based ChatGPT-like interface** to make BitNet more accessible and user-friendly:
+
+### ✨ New Features (My Contribution)
+
+- 🎨 **Modern Web UI** - ChatGPT-style chat interface with conversation history
+- 🔌 **OpenAI-Compatible API** - REST endpoints that work with LangChain, LlamaIndex, etc.
+- 💬 **Browser-Based Chat** - No command line needed, chat directly in your browser
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile
+- 🐳 **Docker Support** - One-command deployment
+- 🔒 **Privacy-Focused** - All inference stays on your local machine
 
 ![BitNet Chat Demo](https://img.shields.io/badge/BitNet-b1.58--2B--4T-green)
 ![Performance](https://img.shields.io/badge/performance-~15_tokens/sec-orange)
@@ -461,16 +484,30 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Raphael Tomas Malikian**  
 📍 Palmdale, California, USA  
-📧 [rtmalikian@gmail.com](mailto:rtmalikian@gmail.com)
+📧 [rtmalikian@gmail.com](mailto:rtmalikian@gmail.com)  
+🔗 [GitHub](https://github.com/rtmalikian)
+
+**What I Built:**
+- ✅ Web-based ChatGPT-like interface
+- ✅ FastAPI server with OpenAI-compatible endpoints
+- ✅ Docker configuration for easy deployment
+- ✅ Responsive UI with conversation history
+
+**What Microsoft Built:**
+- 🔹 BitNet model architecture
+- 🔹 Quantization kernels (i2_s, TL1, TL2)
+- 🔹 Command-line inference tools
+- 🔹 llama.cpp integration
 
 ## 📬 Support
 
-- **Issues:** Open an issue on [GitHub](https://github.com/microsoft/BitNet/issues)
-- **Discussions:** Join the conversation on [GitHub Discussions](https://github.com/microsoft/BitNet/discussions)
-- **Documentation:** Check the [Wiki](https://github.com/microsoft/BitNet/wiki)
+- **Issues:** Open an issue on [GitHub](https://github.com/rtmalikian/bitnet-chat/issues) (for this web interface)
+- **BitNet Issues:** [microsoft/BitNet Issues](https://github.com/microsoft/BitNet/issues) (for the model/inference engine)
 
 ---
 
 **Made with ❤️ by Raphael Tomas Malikian**
+
+*This project provides a web interface for Microsoft BitNet. BitNet itself is developed by Microsoft Research.*
 
 *Run AI locally, keep your data private.*
