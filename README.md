@@ -1,136 +1,149 @@
-# bitnet.cpp
+# BitNet Chat
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-![version](https://img.shields.io/badge/version-1.0-blue)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Docker](https://img.shields.io/badge/docker-ready-2496ED.svg?logo=docker)](https://www.docker.com/)
 
-[<img src="./assets/header_model_release.png" alt="BitNet Model on Hugging Face" width="800"/>](https://huggingface.co/microsoft/BitNet-b1.58-2B-4T)
+**🤖 A ChatGPT-like web interface for Microsoft BitNet. Run a local AI assistant on your machine with OpenAI-compatible API. 100% private, no cloud required.**
 
-**bitnet.cpp** is the official inference framework for 1-bit LLMs (e.g., BitNet b1.58). It offers a suite of optimized kernels, that support **fast** and **lossless** inference of 1.58-bit models on CPU and GPU.
+> **⚠️ Important:** This project provides a **web interface tool** for Microsoft's BitNet model. The BitNet model and inference engine are developed by Microsoft. This project adds a user-friendly web UI layer on top of the existing BitNet infrastructure.
 
-## 🆕 What's New
+## 🔗 Original Project
 
-- 🔥 **NEW**: Web Chat Interface - ChatGPT-like UI for local inference! [Try it now](#web-interface)
-- ⚡ CPU optimization with parallel kernels and configurable tiling
-- 🚀 Speedups of **1.37x** to **5.07x** on ARM CPUs
-- 💰 Energy consumption reduced by **55.4%** to **70.0%**
+This web interface is built on top of the official **Microsoft BitNet** project:
 
-## 🌐 Quick Links
+- **Original Repository:** [microsoft/BitNet](https://github.com/microsoft/BitNet)
+- **Research Paper:** [BitNet: Scaling 1-bit Transformers](https://arxiv.org/abs/2310.11453)
+- **Model:** [BitNet-b1.58-2B-4T on Hugging Face](https://huggingface.co/microsoft/BitNet-b1.58-2B-4T-gguf)
 
-- **[Web Interface Guide](web_server/README.md)** - ChatGPT-like UI setup
-- **[GPU Support](gpu/README.md)** - CUDA-optimized kernels
-- **[Technical Report](https://arxiv.org/abs/2410.16144)** - Research paper
+## 🎯 What This Project Adds
+
+I created this **web-based ChatGPT-like interface** to make BitNet more accessible and user-friendly:
+
+### ✨ New Features (My Contribution)
+
+- 🎨 **Modern Web UI** - ChatGPT-style chat interface with conversation history
+- 🔌 **OpenAI-Compatible API** - REST endpoints that work with LangChain, LlamaIndex, etc.
+- 💬 **Browser-Based Chat** - No command line needed, chat directly in your browser
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile
+- 🐳 **Docker Support** - One-command deployment
+- 🔒 **Privacy-Focused** - All inference stays on your local machine
+
+### 📊 What's Microsoft's vs. What's Mine
+
+| Component | Created By |
+|-----------|------------|
+| BitNet Model Architecture | **Microsoft Research** |
+| Quantization Kernels (i2_s, TL1, TL2) | **Microsoft Research** |
+| llama.cpp Integration | **Microsoft + llama.cpp team** |
+| Command-line Inference | **Microsoft** |
+| **Web Chat Interface** | **Raphael Tomas Malikian** ✋ |
+| **FastAPI Web Server** | **Raphael Tomas Malikian** ✋ |
+| **OpenAI-Compatible API Layer** | **Raphael Tomas Malikian** ✋ |
+| **Docker Configuration** | **Raphael Tomas Malikian** ✋ |
 
 ---
 
-## 🎨 Web Interface (NEW!)
+## 📸 Screenshots
 
-**Run BitNet with a beautiful ChatGPT-like interface!**
+### Welcome Screen
 
-### Screenshots
-
-#### Welcome Screen
 ![Welcome Screen](web_server/assets/screenshot1.png)
 
-#### Quantum Computing Explanation
-![Quantum Computing](web_server/assets/screenshot2.png)
+*The BitNet Chat welcome screen with suggestion cards for quick start.*
 
-#### Python Code Generation
-![Code Generation](web_server/assets/screenshot3.png)
+### Example: Explaining Quantum Computing
 
-### Quick Start
+![Quantum Computing Explanation](web_server/assets/screenshot2.png)
 
-```bash
-# Install dependencies
-pip install fastapi uvicorn pydantic
+*BitNet explaining quantum computing in simple terms - all processed locally on your machine.*
 
-# Start the server
-python web_server/app.py
+### Example: Python Code Generation
 
-# Open your browser
-open http://localhost:8080
-```
+![Python Code Generation](web_server/assets/screenshot3.png)
 
-### Features
-
-- 🎨 Modern ChatGPT-like UI
-- 🔒 100% local & private
-- 🚀 OpenAI-compatible API
-- 💬 Conversation history
-- 📱 Responsive design
-- 🐳 Docker support
-
-👉 **Full documentation:** [web_server/README.md](web_server/README.md)
+*BitNet generating a Python script to sort numbers - with clear code examples.*
 
 ---
 
-## 📊 Performance
+## 🚀 Quick Start
 
-### CPU Inference (bitnet.cpp)
-
-| Platform | Speedup | Energy Savings |
-|----------|---------|----------------|
-| ARM CPU | 1.37x - 5.07x | 55.4% - 70.0% |
-| x86 CPU | 2.37x - 6.17x | 71.9% - 82.2% |
-
-### GPU Inference
-
-| Shape (N×K) | W2A8 Latency | BF16 Latency | Speedup |
-|-------------|--------------|--------------|---------|
-| 2560 × 2560 | 13.32 μs | 18.32 μs | **1.38x** |
-| 13824 × 2560 | 18.75 μs | 59.51 μs | **3.17x** |
-| 20480 × 3200 | 30.99 μs | 112.39 μs | **3.63x** |
-
----
-
-## 🚀 Installation
-
-### Requirements
-
-- Python >= 3.9
-- CMake >= 3.22
-- Clang >= 18 (recommended)
-
-### Quick Setup
+### Option 1: Run Locally (Recommended for Development)
 
 ```bash
 # Clone the repository
-git clone --recursive https://github.com/microsoft/BitNet.git
-cd BitNet
+git clone https://github.com/rtmalikian/bitnet-chat.git
+cd bitnet-chat
 
-# Install Python dependencies
-pip install -r requirements.txt
+# Install Python dependencies for web server
+pip install fastapi uvicorn pydantic
 
-# Setup the environment
-python setup_env.py -md models/BitNet-b1.58-2B-4T -q i2_s
+# Start the web server
+python web_server/app.py
 
-# Run inference
-python run_inference.py -m models/BitNet-b1.58-2B-4T/ggml-model-i2_s.gguf \
-  -p "You are a helpful assistant" -cnv
+# Open your browser to http://localhost:8080
+```
+
+### Option 2: Docker (Recommended for Production)
+
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Access at http://localhost:8080
+```
+
+### Option 3: Quick Start Script
+
+```bash
+# Automated setup and launch
+./start_web_server.sh
 ```
 
 ---
 
 ## 💻 Usage
 
-### Command Line Inference
-
-```bash
-python run_inference.py \
-  -m models/BitNet-b1.58-2B-4T/ggml-model-i2_s.gguf \
-  -p "Your prompt here" \
-  -n 128 \
-  -t 4 \
-  -cnv
-```
-
 ### Web Interface
 
+1. Open http://localhost:8080 in your browser
+2. Type a message or click a suggestion card
+3. Chat with BitNet locally!
+
+### API Endpoints
+
+#### Chat Completions
+
 ```bash
-python web_server/app.py
-# Access at http://localhost:8080
+curl http://localhost:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "bitnet",
+    "messages": [
+      {"role": "user", "content": "Hello!"}
+    ],
+    "temperature": 0.8,
+    "max_tokens": 512
+  }'
 ```
 
-### API Usage
+#### List Models
+
+```bash
+curl http://localhost:8080/v1/models
+```
+
+#### Health Check
+
+```bash
+curl http://localhost:8080/health
+```
+
+---
+
+## 🔌 Integration Examples
+
+### Python with OpenAI Client
 
 ```python
 from openai import OpenAI
@@ -142,143 +155,165 @@ client = OpenAI(
 
 response = client.chat.completions.create(
     model="bitnet",
-    messages=[{"role": "user", "content": "Hello!"}]
+    messages=[
+        {"role": "system", "content": "You are a helpful coding assistant."},
+        {"role": "user", "content": "Write a Python function to reverse a string"}
+    ],
+    temperature=0.7,
+    max_tokens=256
 )
+
 print(response.choices[0].message.content)
 ```
 
----
+### LangChain
 
-## 📦 Supported Models
+```python
+from langchain_openai import ChatOpenAI
 
-### Official Models
+llm = ChatOpenAI(
+    openai_api_key="not-needed",
+    openai_api_base="http://localhost:8080/v1",
+    model_name="bitnet",
+    temperature=0.7
+)
 
-| Model | Parameters | CPU | I2_S | TL1 | TL2 |
-|-------|------------|-----|------|-----|-----|
-| [BitNet-b1.58-2B-4T](https://huggingface.co/microsoft/BitNet-b1.58-2B-4T-gguf) | 2.4B | x86/ARM | ✅ | ✅ | ❌ |
-
-### Community Models
-
-| Model | Parameters | CPU | I2_S | TL1 | TL2 |
-|-------|------------|-----|------|-----|-----|
-| [bitnet_b1_58-large](https://huggingface.co/1bitLLM/bitnet_b1_58-large) | 0.7B | x86/ARM | ✅ | ✅ | ❌ |
-| [bitnet_b1_58-3B](https://huggingface.co/1bitLLM/bitnet_b1_58-3B) | 3.3B | x86/ARM | ❌ | ✅ | ✅ |
-| [Llama3-8B-1.58-100B-tokens](https://huggingface.co/HF1BitLLM/Llama3-8B-1.58-100B-tokens) | 8.0B | x86/ARM | ✅ | ✅ | ❌ |
-| [Falcon3 Family](https://huggingface.co/collections/tiiuae/falcon3-67605ae03578be86e4e87026) | 1B-10B | x86/ARM | ✅ | ✅ | ❌ |
-
----
-
-## 🏗️ Architecture
-
+response = llm.invoke("Explain quantum computing in simple terms")
+print(response.content)
 ```
-bitnet.cpp/
-├── web_server/          # Web interface (NEW!)
-│   ├── app.py          # FastAPI server
-│   └── static/         # Web UI
-├── src/                # Core inference code
-├── include/            # Header files
-├── gpu/                # GPU kernels
-├── utils/              # Utility scripts
-├── preset_kernels/     # Pre-tuned kernels
-└── 3rdparty/           # Dependencies (llama.cpp)
+
+### LlamaIndex
+
+```python
+from llama_index.llms.openai import OpenAI
+
+llm = OpenAI(
+    api_key="not-needed",
+    api_base="http://localhost:8080/v1",
+    model="bitnet",
+    temperature=0.7
+)
+
+response = llm.complete("What is the capital of France?")
+print(response.text)
 ```
 
 ---
 
-## 🔧 Advanced Usage
+## ⚙️ Configuration
 
-### Benchmarking
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `MODEL_PATH` | Path to the GGUF model file | `models/BitNet-b1.58-2B-4T/ggml-model-i2_s.gguf` |
+| `CTX_SIZE` | Context window size (tokens) | `2048` |
+| `N_PREDICT` | Max tokens to generate | `512` |
+| `TEMPERATURE` | Sampling temperature (0.0-2.0) | `0.8` |
+| `THREADS` | Number of CPU threads | `4` |
+
+### Example with Custom Settings
 
 ```bash
-python utils/e2e_benchmark.py \
-  -m models/BitNet-b1.58-2B-4T/ggml-model-i2_s.gguf \
-  -p 512 \
-  -n 128 \
-  -t 4
-```
+# Run with custom configuration
+export MODEL_PATH="./models/custom-model.gguf"
+export THREADS=8
+export CTX_SIZE=4096
+export TEMPERATURE=0.5
 
-### Model Conversion
-
-```bash
-# Convert from Hugging Face format
-python utils/convert-hf-to-gguf-bitnet.py \
-  ./models/bitnet-b1.58-2B-4T-bf16 \
-  --outtype i2_s
-```
-
-### Custom Model Generation
-
-```bash
-# Generate a dummy model for testing
-python utils/generate-dummy-bitnet-model.py \
-  models/bitnet_b1_58-large \
-  --outfile models/dummy-bitnet-125m.tl1.gguf \
-  --outtype tl1 \
-  --model-size 125M
+python web_server/app.py
 ```
 
 ---
 
-## 🐛 Troubleshooting
+## 📊 Performance
+
+### Benchmarks on Apple M1 (2021 iMac)
+
+| Metric | Value |
+|--------|-------|
+| Model | BitNet-b1.58-2B-4T (Microsoft) |
+| Quantization | i2_s (2-bit) |
+| Prompt Processing | ~25 tokens/sec |
+| Text Generation | ~13-15 tokens/sec |
+| Memory Usage | ~1.2 GB RAM |
+| Model Size | 1.19 GB |
+
+---
+
+## 📁 Project Structure
+
+```
+bitnet-chat/
+├── web_server/
+│   ├── app.py              # FastAPI web server (My contribution)
+│   ├── static/
+│   │   └── index.html      # Web UI - ChatGPT-like interface (My contribution)
+│   ├── assets/
+│   │   └── screenshots*.png # Demo screenshots
+│   ├── requirements.txt    # Python dependencies
+│   └── README.md           # Detailed documentation
+├── Dockerfile              # Docker image definition (My contribution)
+├── docker-compose.yml      # Docker Compose configuration (My contribution)
+├── start_web_server.sh     # Quick start script (My contribution)
+├── models/                 # BitNet model files (Microsoft)
+└── build/                  # Compiled llama.cpp binaries (Microsoft/llama.cpp)
+```
+
+---
+
+## 🔒 Privacy & Security
+
+**All inference happens locally on your machine.** No data is sent to external servers, cloud services, or third parties.
+
+- ✅ No API keys required
+- ✅ No internet connection needed (after initial setup)
+- ✅ All conversation history stored locally in browser
+- ✅ Model runs entirely on your hardware
+- ✅ No telemetry or analytics
+
+---
+
+## 🛠️ Troubleshooting
 
 ### Common Issues
 
-**Build fails with CMake errors:**
+#### "Address already in use" error
+
 ```bash
-# Ensure submodules are initialized
-git submodule update --init --recursive
+# Kill the process using port 8080
+lsof -ti:8080 | xargs kill -9
+
+# Restart the server
+python web_server/app.py
 ```
 
-**Model not found:**
+#### "Model file not found" error
+
 ```bash
-# Download the model
-python -c "from huggingface_hub import snapshot_download; \
-  snapshot_download('microsoft/BitNet-b1.58-2B-4T-gguf', \
-  local_dir='models/BitNet-b1.58-2B-4T')"
+# Verify model exists
+ls -la models/BitNet-b1.58-2B-4T/
+
+# Re-download if necessary
+python -c "from huggingface_hub import snapshot_download; snapshot_download('microsoft/BitNet-b1.58-2B-4T-gguf', local_dir='models/BitNet-b1.58-2B-4T')"
 ```
 
-**Web interface shows garbage:**
-- Hard refresh: `Cmd+Shift+R` (Mac) or `Ctrl+Shift+R` (Windows)
+#### Browser shows old version
+
+- Hard refresh: `Cmd + Shift + R` (Mac) or `Ctrl + Shift + R` (Windows)
 - Clear browser cache
-- Try incognito mode
-
-See [web_server/README.md](web_server/README.md) for web-specific issues.
-
----
-
-## 📚 Documentation
-
-- **[Web Interface Guide](web_server/README.md)** - Setup and usage for the ChatGPT-like UI
-- **[GPU README](gpu/README.md)** - GPU acceleration details
-- **[Source README](src/README.md)** - CPU optimization guide
-- **[Technical Report](https://arxiv.org/abs/2410.16144)** - Research paper
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-Areas we'd love help:
-- 🎨 UI/UX improvements for the web interface
-- ⚡ Performance optimizations
-- 📱 Mobile responsiveness
-- 🌍 Internationalization
-- 📚 Documentation enhancements
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- Try incognito/private mode
 
 ---
 
 ## 🙏 Acknowledgments
 
-This project is based on the [llama.cpp](https://github.com/ggerganov/llama.cpp) framework. We thank all contributors for their work on the open-source community.
+This project builds upon excellent work by others:
 
-BitNet's kernels are built on top of the Lookup Table methodologies pioneered in [T-MAC](https://github.com/microsoft/T-MAC/).
+- **[Microsoft Research](https://github.com/microsoft/BitNet)** - For the amazing BitNet model and inference engine
+- **[llama.cpp](https://github.com/ggerganov/llama.cpp)** - For the efficient C++ inference framework
+- **[OpenAI](https://openai.com)** - For the API design inspiration
+- **[FastAPI](https://fastapi.tiangolo.com)** - For the excellent web framework
 
 ---
 
@@ -286,16 +321,40 @@ BitNet's kernels are built on top of the Lookup Table methodologies pioneered in
 
 **Raphael Tomas Malikian**  
 📍 Palmdale, California, USA  
-📧 [rtmalikian@gmail.com](mailto:rtmalikian@gmail.com)
+📧 [rtmalikian@gmail.com](mailto:rtmalikian@gmail.com)  
+🔗 [GitHub](https://github.com/rtmalikian)
 
-## 📬 Contact
+**What I Built:**
+- Web-based ChatGPT-like interface
+- FastAPI server with OpenAI-compatible endpoints
+- Docker configuration for easy deployment
+- Responsive UI with conversation history
 
-- **Issues:** [GitHub Issues](https://github.com/microsoft/BitNet/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/microsoft/BitNet/discussions)
-- **Models:** [Hugging Face](https://huggingface.co/microsoft/BitNet-b1.58-2B-4T-gguf)
+**What Microsoft Built:**
+- BitNet model architecture
+- Quantization kernels
+- Command-line inference tools
+- llama.cpp integration
+
+---
+
+## 📄 License
+
+This web interface project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+The underlying BitNet model and inference engine are subject to Microsoft's licensing terms.
+
+---
+
+## 📚 Resources
+
+- **[Original BitNet Repository](https://github.com/microsoft/BitNet)** - Microsoft's official project
+- **[BitNet Paper](https://arxiv.org/abs/2410.16144)** - Technical details on 1-bit LLMs
+- **[Hugging Face Model](https://huggingface.co/microsoft/BitNet-b1.58-2B-4T-gguf)** - Download models
+- **[llama.cpp Documentation](https://github.com/ggerganov/llama.cpp)** - Inference engine docs
 
 ---
 
 **Made with ❤️ by Raphael Tomas Malikian**
 
-*Empowering efficient AI inference on edge devices.*
+*Run AI locally, keep your data private.*

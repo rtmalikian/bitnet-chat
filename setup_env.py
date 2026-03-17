@@ -216,7 +216,7 @@ def compile():
     run_command(["cmake", "--build", "build", "--config", "Release"], log_step="compile")
 
 def main():
-    setup_gguf()
+    # setup_gguf()  # Skip: gguf already installed
     gen_code()
     compile()
     prepare_model()
