@@ -399,20 +399,52 @@
             .sidebar {
                 display: none;
             }
-            
+
             .suggestions {
                 grid-template-columns: 1fr;
             }
-            
+
             .message {
                 padding: 16px;
                 gap: 12px;
             }
-            
+
             .avatar {
                 width: 30px;
                 height: 30px;
             }
+        }
+
+        /* Footer Credits */
+        .footer-credits {
+            text-align: center;
+            padding: 15px 20px;
+            background: var(--bg-sidebar);
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .footer-credits a {
+            color: var(--accent-assistant);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-credits a:hover {
+            color: var(--text-primary);
+            text-decoration: underline;
+        }
+
+        .footer-credits .heart {
+            color: #e74c3c;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(1); }
         }
     </style>
 </head>
@@ -744,5 +776,12 @@
             input.focus();
         }
     </script>
+    
+    <!-- Footer Credits -->
+    <div class="footer-credits">
+        Created with <span class="heart">❤️</span> by 
+        <a href="https://github.com/rtmalikian" target="_blank" rel="noopener">Raphael Tomas Malikian</a> | 
+        <a href="mailto:rtmalikian@gmail.com">rtmalikian@gmail.com</a>
+    </div>
 </body>
 </html>
