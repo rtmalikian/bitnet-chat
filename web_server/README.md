@@ -303,6 +303,7 @@ console.log(data.choices[0].message.content);
 | `N_PREDICT` | Max tokens to generate | `512` |
 | `TEMPERATURE` | Sampling temperature (0.0-2.0) | `0.8` |
 | `THREADS` | Number of CPU threads | `4` |
+| `CORS_ALLOW_ORIGINS` | Comma-separated trusted browser origins allowed to call the API | `http://localhost:8080,http://127.0.0.1:8080` |
 
 ### Example with Custom Settings
 

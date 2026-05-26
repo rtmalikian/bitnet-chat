@@ -19,16 +19,26 @@ import time
 
 app = FastAPI(title="BitNet API", version="1.0.0")
 
-# Enable CORS
+# Configuration
+CORS_ALLOW_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get(
+        "CORS_ALLOW_ORIGINS",
+        "http://localhost:8080,http://127.0.0.1:8080",
+    ).split(",")
+    if origin.strip()
+]
+
+# Enable CORS for the local web UI by default. Operators can opt in to
+# additional trusted origins with CORS_ALLOW_ORIGINS when exposing the API.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=CORS_ALLOW_ORIGINS,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Configuration
 MODEL_PATH = os.environ.get("MODEL_PATH", "models/BitNet-b1.58-2B-4T/ggml-model-i2_s.gguf")
 CTX_SIZE = int(os.environ.get("CTX_SIZE", "2048"))
 N_PREDICT = int(os.environ.get("N_PREDICT", "512"))
