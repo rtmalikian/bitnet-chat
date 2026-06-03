@@ -19,10 +19,16 @@ import time
 
 app = FastAPI(title="BitNet API", version="1.0.0")
 
-# Enable CORS
+# Enable CORS — restrict to localhost origins for security
+# (prevents malicious websites from making cross-origin requests to the local API)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -586,4 +592,6 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    # Default to localhost only — prevents network exposure of the API.
+    # Use --host 0.0.0.0 explicitly if you need network access.
+    uvicorn.run(app, host="127.0.0.1", port=8080)

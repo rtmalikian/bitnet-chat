@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: bitnet-chat
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     volumes:
       # Mount the model directory to avoid downloading inside the container
       - ./models:/app/models

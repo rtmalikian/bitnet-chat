@@ -271,6 +271,23 @@ bitnet-chat/
 - ✅ All conversation history stored locally in browser
 - ✅ Model runs entirely on your hardware
 - ✅ No telemetry or analytics
+- ✅ **Server binds to localhost by default** — not exposed to your local network
+- ✅ **CORS restricted to localhost origins** — malicious websites cannot access the API
+
+### Network Access
+
+By default, the server only listens on `127.0.0.1` (localhost). If you need to access it from other devices on your network, you can explicitly bind to all interfaces:
+
+```bash
+# Expose to local network (use with caution)
+python web_server/app.py --host 0.0.0.0
+```
+
+For Docker, edit `docker-compose.yml` to change the port mapping:
+```yaml
+ports:
+  - "0.0.0.0:8080:8080"  # Expose to network (default is 127.0.0.1)
+```
 
 ---
 

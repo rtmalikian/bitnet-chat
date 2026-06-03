@@ -72,5 +72,5 @@ ENV THREADS=4
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8080/health || exit 1
 
-# Run the web server
+# Run the web server (binds to localhost by default for security)
 CMD ["python3", "web_server/app.py"]
